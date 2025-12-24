@@ -3,14 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Redux Cookie Counter</title>
+    <title>Task List Management App</title>
   </head>
   <body>
     <main>
-      <h1>Cookie Counter</h1>
-      <button id="addCookie">Add Cookie</button>
-      <button id="removeCookie">Remove Cookie</button>
-      <h2 id="cookieCount"></h2>
+      <h1>Task List Management App</h1>
+      <h2>Add Task</h2>
+      <input type="text" id="taskName" placeholder="Task name"/>
+      <input type="text" id="taskWork" placeholder="You work..."/>
+      <button id="addTaskBtn">Add Task</button>
+
+      <h2>Remove Task</h2>
+      <input type="number" id="taskId" placeholder="Task ID"/>
+      <button id="removeTaskBtn">Remove Task</button>
+
+      <ul>
+        <li id="taskList"></li>
+      </ul>
+
+      <p id="totalTask"></p>
     </main>
 
     <script type="module" src="/src/main.js"></script>
