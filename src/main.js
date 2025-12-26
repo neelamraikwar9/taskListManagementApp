@@ -7,6 +7,7 @@ store.subscribe(() => {
   console.log(store.getState());
 
   updateTaskList();
+  handleTotalTask();
 })
 
 
@@ -20,13 +21,16 @@ const taskList = document.getElementById('taskList');
 const totalTask = document.getElementById('totalTask');
 
 
+// let nextId = 1;
 
 const handleAddTask = () => {
   const name = taskName.value; 
   const work = taskWork.value; 
 
   if(name && work){
-    store.dispatch({type: "ADD_TASK", payload: {name: name, work: work}});
+    store.dispatch({type: "ADD_TASK", payload: { 
+      // id: nextId++, 
+      name: name, work: work}});
   }
 }
 
@@ -48,30 +52,41 @@ const updateTaskList = () => {
      const strike = tsk.completed ? 'style="text-decoration: line-through"' : '';
      const noStrike = tsk.completed ? 'style="text-decoration: none"' : '';
      const status = tsk.completed ? '<span style="color: green; font-weight: bold;"> ✓ completed</span>' : '';
-    return `<li><span ${strike}><input type="checkbox" data-task-index = "${index}" onChange="handleTaskToggle(event)" ${tsk.completed ? 'checked' : ''}/> ${index + 1}. ${tsk.name}: ${tsk.work} </span> <span ${noStrike}>${status}</span></li>`
+    return `<li><span ${strike}><input type="checkbox" 
+
+    data-task-index = "${index}"
+    // // data-task-id = "${tsk.id}"
+
+
+     onChange="handleTaskToggle(event)" ${tsk.completed ? 'checked' : ''}/> ${index + 1}. ${tsk.name}: ${tsk.work} </span> <span ${noStrike}>${status}</span></li>`
   }).join("");
 
 }
 
 
+
 const handleRemoveTask = () => {
-  const taskID = parseInt(taskId.value); 
-  console.log(taskID); 
-
-  // if(taskID){
-  //   store.dispatch({type: "REMOVE_TASK", payload: taskID});
-  // }
-  
-if (!isNaN(taskID) && taskID > 0) {
-  const index = taskID - 1;              // 1 → 0, 2 → 1, ...
-  store.dispatch({ type: "REMOVE_TASK", payload: index });
-}
-
-}
-
-
+  const id = parseInt(taskId.value, 10);   // user types 3 → id 3
+  if (!isNaN(id) && id > 0) {
+    store.dispatch({ type: 'REMOVE_TASK', payload: id });
+    taskId.value = '';
+  }
+};
 
 removeTaskBtn.addEventListener("click", handleRemoveTask);
+
+const handleTotalTask = () => {
+  const state = store.getState();
+
+  const taskCount = state.tasks.length; 
+  console.log(taskCount, "taskbcoutn")
+
+  totalTask.innerHTML = `<strong>Total Tasks:  </strong> ${taskCount}`
+}
+
+handleTotalTask();
+
+
 
 
 
