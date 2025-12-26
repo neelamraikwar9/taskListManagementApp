@@ -65,10 +65,23 @@ const updateTaskList = () => {
 
 
 
+// const handleRemoveTask = () => {
+//   const id = parseInt(taskId.value, 10);   // user types 3 → id 3
+//   if (!isNaN(id) && id > 0) {
+//     store.dispatch({ type: 'REMOVE_TASK', payload: id });
+//     taskId.value = '';
+//   }
+// };
+
+
 const handleRemoveTask = () => {
-  const id = parseInt(taskId.value, 10);   // user types 3 → id 3
+  const id = parseInt(taskId.value, 10);
+  console.log('User typed ID:', id);
+
   if (!isNaN(id) && id > 0) {
-    store.dispatch({ type: 'REMOVE_TASK', payload: id });
+    const index = id - 1;
+    console.log('Dispatching REMOVE_TASK with index:', index);
+    store.dispatch({ type: 'REMOVE_TASK', payload: index });
     taskId.value = '';
   }
 };
